@@ -1,28 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import List from './components/List';
+import Hero from './components/Hero';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import users from './data/randomuser.json' // from https://github.com/pixelastic/fakeusers/tree/master/data
 
 function App() {
-  console.log(users)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/user/:id">
+          <Hero />
+        </Route>
+        <Route exact path="/">
+          <List />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </Router>
   );
 }
 
