@@ -8,19 +8,9 @@ import users from '../data/randomuser.json' // from https://github.com/pixelasti
 
 function List() {
     const [currentPage, setCurrentPage] = useState(1);
-    const [usersPerPage] = useState(20);
-
-    // Получение текущих постов с именами
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    
-    const currentUsers = [];
-    for (let i = indexOfFirstUser; i < indexOfLastUser; i++) {
-        if (!users[i]) break;
-        users[i].index = i;
-        users[i].listPage = currentPage;
-        currentUsers.push(users[i]);
-    }
+    const usersPerPage = 20; // Нет смысла засовывать константу в стейт - туда нужно засовывать данные, изменения в которых должны триггерить изменения компонентов
+    const usersOffset = (currentPage - 1) * usersPerPage
+    const currentUsers = users.slice(usersOffset, usersOffset + 20) // Цикл лучше заменить обычным разрезанием массива. Нам просто надо получить кусочек наших данных
     
     // Изменение страницы
     const paginate = pageNumber => setCurrentPage(pageNumber);

@@ -27,8 +27,8 @@ function ucFirst(arr) {
 }
 
 function Hero() {
-    const id = useParams();
-    const hero = users[id.id];
+    const username = useParams(); // исправляем идентификацию пользователя (поменяли ссылку в компоненте <Users />)
+    const hero = users.find((user) => user.username === username.id)
 
     return (
         <div className='container mt-5'>
